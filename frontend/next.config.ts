@@ -2,7 +2,6 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: 'standalone',
-  typescript: { ignoreBuildErrors: true },
   // Hide the floating Next.js dev indicators. The "N" + bot button at the
   // bottom were dimming the dashboard with a full-screen overlay.
   devIndicators: false,
