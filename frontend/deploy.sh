@@ -20,7 +20,7 @@ npm ci --no-audit --no-fund
 # Build
 echo ""
 echo "[2/3] Building..."
-NEXT_PUBLIC_API_URL=https://api.v2.wearimpressive.com/api npm run build
+NEXT_PUBLIC_API_URL=https://api.wearimpressive.com/api npm run build
 
 # Restart PM2
 echo ""

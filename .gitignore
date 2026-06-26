@@ -1,4 +1,42 @@
-.vercel
+# Dependencies
+node_modules/
+vendor/
 
-# Next.js build artifacts
-.next
+# Environment
+.env
+.env.*!.env.example
+
+# Next.js
+.next/
+out/
+.vercel/
+
+# Laravel
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+.phpunit.cache
+.phpunit.result.cache
+.phpactor.json
+/auth.json
+Homestead.json
+Homestead.yaml
+
+# IDE
+/.fleet
+/.idea
+/.nova
+/.vscode
+/.zed
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+npm-debug.log*
+yarn-error.log*
+
+# Build
+*.pack.gz
