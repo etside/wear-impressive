@@ -10,7 +10,7 @@ import Script from 'next/script';
 
 interface GtmConfig {
   enabled: boolean;
-  gtm_id: string;
+  gtm_id?: string;
 }
 
 declare global {

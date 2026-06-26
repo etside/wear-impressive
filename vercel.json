@@ -1,0 +1,10 @@
+{
+  "experimentalServices": {
+    "wear-impressive-backend": {
+      "type": "web",
+      "root": "backend",
+      "routePrefix": "/",
+      "framework": "vite"
+    }
+  }
+}
