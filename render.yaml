@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: wear-impressive-backend
+    runtime: docker
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
+    branch: tk
+    plan: free
+    region: singapore
+    healthCheckPath: /api/up
+    envVars:
+      - key: APP_NAME
+        value: "Wear Impressive"
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+      - key: APP_KEY
+        value: "base64:gfkyblipsT5GojwQ98ez6Gw4yma9bxhm9t3w4JqnI/I="
+      - key: APP_URL
+        sync: false
+      - key: DB_CONNECTION
+        value: sqlite
+      - key: DB_DATABASE
+        value: /var/www/html/database/database.sqlite
+      - key: SESSION_DRIVER
+        value: array
+      - key: CACHE_STORE
+        value: array
+      - key: FILESYSTEM_DISK
+        value: local
+      - key: LOG_CHANNEL
+        value: stderr
+      - key: LOG_LEVEL
+        value: error
