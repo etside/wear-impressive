@@ -18,8 +18,6 @@ import { NextRequest, NextResponse } from 'next/server';
  */
 
 const ALLOWED_HOSTS = new Set([
-  'localhost',          // dev
-  '127.0.0.1',
   // Production hosts. Match the storefront and any backend/storage subdomains
   // the deployment uses for serving uploaded assets (logos, product images).
   'wearimpressive.com',

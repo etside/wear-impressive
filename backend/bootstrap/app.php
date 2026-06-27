@@ -4,6 +4,7 @@ use App\Http\Middleware\AttachCurrentStore;
 use App\Http\Middleware\AuthenticateVendorOrStaff;
 use App\Http\Middleware\EnsureStoreContext;
 use App\Http\Middleware\ResolveStoreMiddleware;
+use App\Http\Middleware\SecurityHeaders;
 use App\Http\Middleware\VerifyCourierWebhook;
 use App\Http\Middleware\VerifyPaymentWebhook;
 use App\Http\Responses\ApiResponse;
@@ -26,6 +27,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        $middleware->prepend(SecurityHeaders::class);
         $middleware->alias([
             'resolve.store' => ResolveStoreMiddleware::class,
             'store.context' => EnsureStoreContext::class,

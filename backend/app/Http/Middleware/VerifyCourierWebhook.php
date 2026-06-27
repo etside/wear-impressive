@@ -16,7 +16,8 @@ use Symfony\Component\HttpFoundation\Response;
  * `X-Webhook-Token` header. The expected value lives in the courier's
  * config (`config/couriers.{provider}.webhook_secret`) or, per-store, in
  * the matching `DeliveryPartner::settings['webhook_secret']`. If no secret
- * is configured anywhere the check is skipped (dev friendly).
+ * is configured anywhere the check is skipped in non-production (dev friendly)
+ * but aborts 500 in production (fail closed).
  */
 class VerifyCourierWebhook
 {
@@ -48,8 +49,20 @@ class VerifyCourierWebhook
             $expected[] = (string) $s;
         }
 
-        // No secrets configured anywhere — allow (dev-friendly).
+        // No secrets configured anywhere.
         if (empty($expected)) {
+            // Fail closed in production: an unconfigured secret must not
+            // silently allow unauthenticated webhook requests through.
+            if (app()->environment('production')) {
+                Log::critical('courier.webhook.no_secret_configured', [
+                    'provider' => $provider,
+                    'ip'       => $request->ip(),
+                ]);
+
+                abort(500, 'Courier webhook secret not configured');
+            }
+
+            // Dev-friendly: allow through when not in production.
             return $next($request);
         }
 

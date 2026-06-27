@@ -18,9 +18,9 @@ import paramiko
 import subprocess
 
 # -- Config -------------------------------------------------------------------
-HOST         = "wearimpressive.com"
-USER         = "wearimp1"
-KEY_PATH     = r"C:\Users\HP\wi_key_nopass"
+HOST         = "[YOUR_SERVER_HOST]"
+USER         = "[YOUR_SSH_USER]"
+KEY_PATH     = r"[YOUR_KEY_PATH]"
 REMOTE_FRONT = "/home/wearimp1/v2.wearimpressive.com/frontend"
 REMOTE_API   = "/home/wearimp1/api.v2.wearimpressive.com/backend/public"
 LOCAL_FRONT  = r"E:\nas\wear-impressive\frontend"

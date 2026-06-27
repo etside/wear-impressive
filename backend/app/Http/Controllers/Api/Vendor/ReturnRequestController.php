@@ -226,7 +226,7 @@ class ReturnRequestController extends Controller
                     'amount' => $refundAmount,
                     'error' => $e->getMessage(),
                 ]);
-                return ApiResponse::error('Gateway refund failed: '.$e->getMessage(), 502);
+                return ApiResponse::error('Gateway refund failed. Please try again.', 502);
             } catch (Throwable $e) {
                 Log::channel('stack')->error('[returns] unexpected gateway error', ['error' => $e->getMessage()]);
                 return ApiResponse::error('Unexpected gateway error. Refund not processed.', 502);

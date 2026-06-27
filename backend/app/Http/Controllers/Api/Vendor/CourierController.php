@@ -61,7 +61,7 @@ class CourierController extends Controller
                 'message'        => $e->getMessage(),
             ]);
 
-            return ApiResponse::error('Courier booking failed: '.$e->getMessage(), 502);
+            return ApiResponse::error('Courier booking failed. Please try again.', 502);
         } catch (Throwable $e) {
             Log::error('[couriers] book.unexpected', [
                 'courier'        => $partnerSlug,
@@ -158,7 +158,7 @@ class CourierController extends Controller
                 'message'         => $e->getMessage(),
             ]);
 
-            return ApiResponse::error('Courier tracking failed: '.$e->getMessage(), 502);
+            return ApiResponse::error('Courier tracking failed. Please try again.', 502);
         } catch (Throwable $e) {
             return ApiResponse::error('Unexpected courier error.', 500);
         }
@@ -208,7 +208,7 @@ class CourierController extends Controller
                 'message'         => $e->getMessage(),
             ]);
 
-            return ApiResponse::error('Courier cancel failed: '.$e->getMessage(), 502);
+            return ApiResponse::error('Courier cancel failed. Please try again.', 502);
         } catch (Throwable $e) {
             return ApiResponse::error('Unexpected courier error.', 500);
         }

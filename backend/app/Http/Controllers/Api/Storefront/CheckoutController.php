@@ -361,7 +361,8 @@ class CheckoutController extends Controller
         } catch (\RuntimeException $e) {
             return ApiResponse::error($e->getMessage(), 422);
         } catch (\Throwable $e) {
-            return ApiResponse::error('Failed to place order: '.$e->getMessage(), 500);
+            \Log::error('Checkout failed', ['error' => $e->getMessage(), 'trace' => $e->getTraceAsString()]);
+            return ApiResponse::error('Failed to place order. Please try again.', 500);
         }
 
         event(new OrderPlaced($order));

@@ -305,18 +305,7 @@ function OrderConfirmationPage() {
                 <ClipboardList size={14} /> My Orders
               </Button>
             </Link>
-          ) : (
-            // Track Order is intentionally hidden for now — owner asked to
-            // keep the markup around in case the dedicated tracking page
-            // gets re-enabled. Re-render by removing `false &&` below.
-            false && (
-              <Link href={`${__sb}/order-tracking${orderNumber ? `?order=${orderNumber}` : ''}`}>
-                <Button variant="secondary" size="sm">
-                  <Truck size={14} /> Track Order
-                </Button>
-              </Link>
-            )
-          )}
+          ) : null}
           <Link href={`${__sb}/products`} className="ml-auto">
             <Button size="sm">
               <ShoppingBag size={14} /> Shop More

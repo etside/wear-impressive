@@ -23,13 +23,13 @@ return [
     'allowed_methods' => ['*'],
 
     'allowed_origins' => [
-        'http://localhost:3000',
-        'http://localhost:3001',
+        'https://wearimpressive.com',
+        'https://www.wearimpressive.com',
     ],
 
     // Wear Impressive's production domain. Single-tenant — only one origin pattern.
     'allowed_origins_patterns' => [
-        '#^https?://([a-z0-9-]+\.)*wearimpressive\.com$#',
+        '#^https://([a-z0-9-]+\.)*wearimpressive\.com$#',
     ],
 
     'allowed_headers' => ['*'],

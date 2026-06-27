@@ -17,6 +17,7 @@ import { useLang } from '@/lib/i18n/context';
 import { useMetaPixel } from '@/components/store/meta-pixel-provider';
 import type { ThemeProductTab } from '@/lib/themes';
 import { getAvailableSizes } from '@/lib/product-variants';
+import DOMPurify from 'isomorphic-dompurify';
 
 /* ── Helpers ─────────────────────────────────────────────────────── */
 // `Pricing` is structurally compatible with both Product and ProductVariant —
@@ -380,7 +381,7 @@ export default function ProductDetailClient() {
           shareTitle: t.storeProductDetail.shareTitle,
           shareThis: t.storeProductDetail.shareThis,
           shareOnFacebook: t.storeProductDetail.shareOnFacebook,
-          shareOnInstagram: t.storeProductDetail.shareOnInstagram,
+          shareOnInstagram: t.storeProductDetail.shareInstagram,
           copyLink: t.storeProductDetail.copyLink,
           linkCopied: t.storeProductDetail.linkCopied,
           shareInstagramHint: t.storeProductDetail.shareInstagramHint,
@@ -1118,7 +1119,7 @@ function BundleDetailTabs({
           dashboard row. */}
       {activeTab === 'description' && (
         product.description ? (
-          <div className="rich-text text-sm text-gray-700 leading-relaxed max-w-3xl" dangerouslySetInnerHTML={{ __html: product.description }} />
+          <div className="rich-text text-sm text-gray-700 leading-relaxed max-w-3xl" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(product.description) }} />
         ) : (
           <p className="text-sm text-gray-400">No description provided.</p>
         )
@@ -1126,7 +1127,7 @@ function BundleDetailTabs({
 
       {customTabs.map(t => (
         activeTab === t.key && (
-          <div key={t.key} className="rich-text text-sm text-gray-700 leading-relaxed max-w-3xl" dangerouslySetInnerHTML={{ __html: t.content || '' }} />
+          <div key={t.key} className="rich-text text-sm text-gray-700 leading-relaxed max-w-3xl" dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(t.content || '') }} />
         )
       ))}
 

@@ -463,21 +463,25 @@ Route::prefix('store')->middleware(['resolve.store', 'store.context'])->group(fu
     Route::get('collections', [StorefrontCollectionController::class, 'index']);
     Route::get('collections/{slug}', [StorefrontCollectionController::class, 'show']);
 
-    // Cart
-    Route::get('cart', [StorefrontCartController::class, 'show']);
-    Route::post('cart/items', [StorefrontCartController::class, 'add']);
-    Route::patch('cart/items/{id}', [StorefrontCartController::class, 'update'])->whereNumber('id');
-    Route::delete('cart/items/{id}', [StorefrontCartController::class, 'remove'])->whereNumber('id');
-    Route::delete('cart/clear', [StorefrontCartController::class, 'clear']);
-    Route::post('cart/apply-coupon', [StorefrontCartController::class, 'applyCoupon']);
-    Route::delete('cart/coupon', [StorefrontCartController::class, 'removeCoupon']);
+    // Cart (rate-limited)
+    Route::middleware('throttle:30,1')->group(function () {
+        Route::get('cart', [StorefrontCartController::class, 'show']);
+        Route::post('cart/items', [StorefrontCartController::class, 'add']);
+        Route::patch('cart/items/{id}', [StorefrontCartController::class, 'update'])->whereNumber('id');
+        Route::delete('cart/items/{id}', [StorefrontCartController::class, 'remove'])->whereNumber('id');
+        Route::delete('cart/clear', [StorefrontCartController::class, 'clear']);
+        Route::post('cart/apply-coupon', [StorefrontCartController::class, 'applyCoupon']);
+        Route::delete('cart/coupon', [StorefrontCartController::class, 'removeCoupon']);
+    });
 
-    // Checkout
+    // Checkout (rate-limited to prevent abuse)
     Route::post('checkout/calculate', [StorefrontCheckoutController::class, 'calculate']);
-    Route::post('checkout/place', [StorefrontCheckoutController::class, 'place']);
+    Route::post('checkout/place', [StorefrontCheckoutController::class, 'place'])
+        ->middleware('throttle:5,1');
 
     // Payment gateway hand-off (runs after checkout/place for online methods).
     Route::post('payment/initiate/{order}', [StorefrontPaymentController::class, 'initiate'])
+        ->middleware('throttle:5,1')
         ->name('storefront.payment.initiate');
 
     // Blog

@@ -35,7 +35,7 @@ is unaffected.
 - **Handle**: `wi`
 - **Store ID** in the database: `1` (live MySQL) / `17` (local SQLite seed)
 - **Owner email** (vendor login): `owner@wearimpressive.com`
-- **Owner password**: `wi123456` (local) / `password` (live)
+- **Owner password**: `[SET_VIA_ENV]` (local) / `[SET_VIA_ENV]` (live)
 - **Phone / WhatsApp**: `+8801993008596`
 - **Address**: Uttarkhan, Dhaka, Bangladesh, 1230
 - **Primary color**: `#2596be` (teal)
@@ -167,7 +167,7 @@ cd frontend && npm run dev          # → http://localhost:3000
 The storefront opens at `http://localhost:3000/` (no `/shops/wi`
 prefix). Sign into the vendor dashboard at
 `http://localhost:3000/login` with `owner@wearimpressive.com` /
-`wi123456`.
+`[SET_VIA_ENV]`.
 
 ## How to build for production
 
@@ -193,9 +193,9 @@ A README for the deploying developer is **not yet written** — see TODO.
 
 ## Live server — wearimpressive.com
 
-**Host**: VPS at `103.132.96.251`
-**SSH user**: `root`
-**SSH key secret**: `VPS_SSH_KEY` (stored in GitHub Actions secrets)
+**Host**: VPS at `[YOUR_VPS_IP]`
+**SSH user**: `[YOUR_SSH_USER]`
+**SSH key secret**: `[YOUR_SSH_KEY_SECRET]` (stored in GitHub Actions secrets)
 **Process manager**: PM2 — app name `wearimpressive-storefront`
 
 ### Server file layout

@@ -23,13 +23,25 @@ class VerifyPaymentWebhook
      *    controller (RSA). Middleware enforces the shared secret when set.
      *
      * The shared secret is pulled from config('payments.webhook_secret').
-     * If it's empty we skip the header check (not every gateway can send
-     * custom headers) but still log the request for auditability.
+     * In production, an empty secret causes a 500 (fail closed). In non-
+     * production environments the header check is skipped (dev friendly)
+     * but the request is still logged for auditability.
      */
     public function handle(Request $request, Closure $next, ?string $gateway = null): Response
     {
         $gateway = strtolower((string) $gateway);
         $secret = (string) config('payments.webhook_secret', '');
+
+        // Fail closed in production: an unconfigured secret must not silently
+        // allow unauthenticated webhook requests through.
+        if ($secret === '' && app()->environment('production')) {
+            Log::channel('stack')->critical('[payments] webhook secret not configured in production', [
+                'gateway' => $gateway,
+                'ip'      => $request->ip(),
+            ]);
+
+            abort(500, 'Payment webhook secret not configured');
+        }
 
         if ($secret !== '') {
             $presented = (string) $request->header('X-Webhook-Secret', $request->query('secret', ''));

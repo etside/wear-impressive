@@ -279,8 +279,7 @@ export default function OrdersPage() {
       a.click();
       a.remove();
       URL.revokeObjectURL(url);
-    } catch (err) {
-      console.error('Export failed:', err);
+    } catch {
     } finally {
       setExporting(false);
     }

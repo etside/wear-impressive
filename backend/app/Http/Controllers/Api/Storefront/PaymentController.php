@@ -80,7 +80,7 @@ class PaymentController extends Controller
                 'message'      => $e->getMessage(),
             ]);
 
-            return ApiResponse::error('Payment gateway error: '.$e->getMessage(), 502);
+            return ApiResponse::error('Payment gateway error. Please try again.', 502);
         } catch (Throwable $e) {
             Log::channel('stack')->error('[payments] initiate.unexpected', [
                 'order_number' => $orderModel->order_number,
